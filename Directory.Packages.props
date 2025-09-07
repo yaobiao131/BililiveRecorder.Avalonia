@@ -1,0 +1,55 @@
+﻿<Project ToolsVersion="15.0">
+  <ItemGroup>
+    <PackageVersion Include="Avalonia" Version="11.3.4" />
+    <PackageVersion Include="Avalonia.Controls.ItemsRepeater" Version="11.1.5" />
+    <PackageVersion Include="Avalonia.Desktop" Version="11.3.4" />
+    <PackageVersion Include="Avalonia.Fonts.Inter" Version="11.3.4" />
+    <PackageVersion Include="Avalonia.Labs.CommandManager" Version="11.3.1" />
+    <PackageVersion Include="Avalonia.Markup.Xaml.Loader" Version="11.3.4" />
+    <PackageVersion Include="AvaloniaUI.DiagnosticsSupport" Version="2.0.4" />
+    <PackageVersion Include="FluentAvaloniaUI" Version="2.4.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="3.3.3" />
+    <PackageVersion Include="GitVersion.MsBuild" Version="5.12.0" />
+    <PackageVersion Include="Fluid.Core" Version="2.25.0" />
+    <PackageVersion Include="Flurl" Version="4.0.0" />
+    <PackageVersion Include="Jint" Version="3.0.0-beta-2052" />
+    <PackageVersion Include="JsonSubTypes" Version="2.0.1" />
+    <PackageVersion Include="HierarchicalPropertyDefault" Version="0.1.4-beta-g75fdf624b1" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.8" />
+    <PackageVersion Include="Microsoft.IO.RecyclableMemoryStream" Version="3.0.1" />
+    <PackageVersion Include="Nerdbank.Streams" Version="2.12.90" />
+    <PackageVersion Include="Polly" Version="7.2.3" />
+    <PackageVersion Include="Polly.Caching.Memory" Version="3.0.2" />
+    <PackageVersion Include="PolySharp" Version="1.15.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageVersion>
+    <PackageVersion Include="Prism.DryIoc.Uno.WinUI" Version="9.0.537" />
+    <PackageVersion Include="Prism.Uno.WinUI" Version="9.0.537" />
+    <PackageVersion Include="Serilog" Version="4.3.0" />
+    <PackageVersion Include="Google.Protobuf" Version="3.30.2" />
+    <PackageVersion Include="Serilog.Enrichers.Process" Version="3.0.0" />
+    <PackageVersion Include="Serilog.Enrichers.Thread" Version="4.0.0" />
+    <PackageVersion Include="Serilog.Exceptions" Version="8.4.0" />
+    <PackageVersion Include="Serilog.Formatting.Compact" Version="3.0.0" />
+    <PackageVersion Include="Serilog.Sinks.Async" Version="2.1.0" />
+    <PackageVersion Include="Serilog.Sinks.Console" Version="6.0.0" />
+    <PackageVersion Include="Serilog.Sinks.Debug" Version="3.0.0" />
+    <PackageVersion Include="Serilog.Sinks.File" Version="7.0.0" />
+    <PackageVersion Include="StructLinq" Version="0.28.2" />
+    <PackageVersion Include="System.IO.Pipelines" Version="9.0.8" />
+    <PackageVersion Include="FastHashes" Version="2.5.0" />
+    <PackageVersion Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageVersion Include="System.Memory" Version="4.6.3" />
+    <PackageVersion Include="BrotliSharpLib" Version="0.3.3" />
+    <PackageVersion Include="Jurassic" Version="3.2.9" />
+    <PackageVersion Include="Microsoft.ClearScript.Complete" Version="7.5.0" />
+    <PackageVersion Include="JavaScriptEngineSwitcher.Extensions.MsDependencyInjection" Version="3.24.1" />
+    <PackageVersion Include="JavaScriptEngineSwitcher.V8" Version="3.29.1" />
+    <PackageVersion Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
+    <PackageVersion Include="System.CommandLine.NamingConventionBinder" Version="2.0.0-beta4.22272.1" />
+    <PackageVersion Include="Spectre.Console" Version="0.50.0" />
+  </ItemGroup>
+</Project>

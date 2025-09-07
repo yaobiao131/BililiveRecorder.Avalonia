@@ -1,0 +1,27 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:lang="clr-namespace:BililiveRecorder.Avalonia.Lang"
+             mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="900"
+             x:Class="BililiveRecorder.Avalonia.Pages.AnnouncementPage">
+    <Grid Margin="5" RowDefinitions="Auto,*">
+        <Button HorizontalAlignment="Right" Margin="5,0" x:Name="RefreshButton" Click="Button_Click">
+            <StackPanel Orientation="Horizontal">
+                <PathIcon Data="{StaticResource PathIconDataRefresh}" VerticalAlignment="Center" />
+                <TextBlock Text="{x:Static lang:Resources.AnnouncementPage_RefreshButton}" Margin="5,0,0,0" />
+            </StackPanel>
+        </Button>
+        <Decorator Margin="5" Grid.Row="1" x:Name="Container" />
+        <StackPanel x:Name="Loading" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    IsVisible="False">
+            <ui:ProgressRing IsActive="True" Width="80" Height="80" Margin="5" />
+            <TextBlock TextAlignment="Center" FontSize="18" Text="Loading……" />
+        </StackPanel>
+        <TextBlock x:Name="Error" Grid.Row="1" FontSize="20"
+                   Text="{x:Static lang:Resources.AnnouncementPage_FetchFailed}"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="False"
+                   Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}" />
+    </Grid>
+</UserControl>

@@ -1,0 +1,130 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:lang="clr-namespace:BililiveRecorder.Avalonia.Lang"
+             xmlns:m="clr-namespace:BililiveRecorder.Avalonia.Models"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="m:AboutModel"
+             x:Class="BililiveRecorder.Avalonia.Pages.AboutPage">
+    <Grid Margin="10"
+          RowDefinitions="Auto,Auto,*,*"
+          d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type=m:AboutModel}">
+        <Grid.DataContext>
+            <m:AboutModel />
+        </Grid.DataContext>
+        <StackPanel Orientation="Horizontal">
+            <Border HorizontalAlignment="Left" Height="60" Margin="0,5,5,0">
+                <Image Source="/Assets/Icons/ico.ico" />
+            </Border>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <StackPanel.Resources>
+                    <ControlTheme x:Key="Pinyin" TargetType="TextBlock">
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                        <Setter Property="Margin" Value="0,0,0,-6" />
+                    </ControlTheme>
+                    <ControlTheme x:Key="MainText" TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="32" />
+                    </ControlTheme>
+                </StackPanel.Resources>
+                <StackPanel>
+                    <TextBlock Text="mikufans" Theme="{StaticResource Pinyin}" />
+                    <TextBlock Text="mikufans" Theme="{StaticResource MainText}" />
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="lù" Theme="{StaticResource Pinyin}" />
+                    <TextBlock Text="录" Theme="{StaticResource MainText}" />
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="bō" Theme="{StaticResource Pinyin}" />
+                    <TextBlock Text="播" Theme="{StaticResource MainText}" />
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="jī" Theme="{StaticResource Pinyin}" />
+                    <TextBlock Text="姬" Theme="{StaticResource MainText}" />
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Margin="0,10" x:DataType="m:AboutModel">
+            <TextBlock FontSize="16" TextWrapping="Wrap">
+                <TextBlock.Text>
+                    <Binding StringFormat="{x:Static lang:Resources.About_Version}" Path="InformationalVersion" Mode="OneWay" />
+                </TextBlock.Text>
+            </TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock FontSize="16" Text="{x:Static lang:Resources.About_Copyright}" />
+                <TextBlock FontSize="16" Text=" © Genteure" x:Name="CopyrightTextBlock" />
+            </StackPanel>
+            <TextBlock FontSize="16" TextWrapping="Wrap" Text="{x:Static lang:Resources.About_License}" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock FontSize="16" Text="{x:Static lang:Resources.About_Contact}" VerticalAlignment="Center" Margin="0,0,5,0" />
+                <HyperlinkButton Padding="0" Content="rec@danmuji.org" NavigateUri="mailto:rec@danmuji.org" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock FontSize="16" Text="{x:Static lang:Resources.About_Website}" VerticalAlignment="Center" Margin="0,0,5,0" />
+                <HyperlinkButton Padding="0" Content="https://rec.danmuji.org" NavigateUri="https://rec.danmuji.org" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock FontSize="16" Text="{x:Static lang:Resources.About_Project}" VerticalAlignment="Center" Margin="0,0,5,0" />
+                <HyperlinkButton Padding="0" Content="https://github.com/BililiveRecorder/BililiveRecorder"
+                                 NavigateUri="https://github.com/BililiveRecorder/BililiveRecorder" />
+            </StackPanel>
+        </StackPanel>
+        <Grid Grid.Row="2" RowDefinitions="Auto,*">
+            <TextBlock Text="{x:Static lang:Resources.About_Translator}" FontSize="22" />
+            <ListBox Grid.Row="1">
+                <ListBox.Items>
+                    <Label Content="Dewei Li (deweili)" />
+                    <Label Content="Fox Older (olderfox)" />
+                    <Label Content="Genteure (genteure)" />
+                    <Label Content="Heongle (heongle)" />
+                    <Label Content="kafu (kafu0611)" />
+                    <Label Content="Kenneth (w41k3r15347)" />
+                    <Label Content="OrangeCat (dust0517)" />
+                    <Label Content="Vincent Tse (vincentkilua)" />
+                </ListBox.Items>
+            </ListBox>
+        </Grid>
+        <Grid Grid.Row="3" RowDefinitions="Auto,*">
+            <TextBlock Text="{x:Static lang:Resources.About_LibrariesUsed}" FontSize="22" />
+            <ListBox Grid.Row="1">
+                <ListBox.Items>
+                    <TextBlock Text="CliWrap" />
+                    <TextBlock Text="FastHashes" />
+                    <TextBlock Text="GitVersion.MsBuild" />
+                    <TextBlock Text="Hardcodet.NotifyIcon.Wpf" />
+                    <TextBlock Text="HierarchicalPropertyDefault" />
+                    <TextBlock Text="JsonSubTypes" />
+                    <TextBlock Text="Microsoft.Bcl.HashCode" />
+                    <TextBlock Text="Microsoft.Extensions.DependencyInjection" />
+                    <TextBlock Text="Microsoft.Extensions.DependencyInjection.Abstractions" />
+                    <TextBlock Text="Microsoft.IO.RecyclableMemoryStream" />
+                    <TextBlock Text="ModernWpfUI" />
+                    <TextBlock Text="Nerdbank.Streams" />
+                    <TextBlock Text="Newtonsoft.Json" />
+                    <TextBlock Text="Nullable" />
+                    <TextBlock Text="Polly" />
+                    <TextBlock Text="Polly.Caching.Memory" />
+                    <TextBlock Text="Sentry" />
+                    <TextBlock Text="Sentry.Serilog" />
+                    <TextBlock Text="Serilog" />
+                    <TextBlock Text="Serilog.Enrichers.Process" />
+                    <TextBlock Text="Serilog.Enrichers.Thread" />
+                    <TextBlock Text="Serilog.Exceptions" />
+                    <TextBlock Text="Serilog.Formatting.Compact" />
+                    <TextBlock Text="Serilog.Sinks.Console" />
+                    <TextBlock Text="Serilog.Sinks.Debug" />
+                    <TextBlock Text="Serilog.Sinks.File" />
+                    <TextBlock Text="squirrel.windows" />
+                    <TextBlock Text="StructLinq" />
+                    <TextBlock Text="System.CommandLine" />
+                    <TextBlock Text="System.IO.Pipeline" />
+                    <TextBlock Text="System.Memory" />
+                    <TextBlock Text="WindowsAPICodePack-Core" />
+                    <TextBlock Text="WindowsAPICodePack-Shell" />
+                    <TextBlock Text="WPFLocalizeExtension" />
+                </ListBox.Items>
+            </ListBox>
+        </Grid>
+    </Grid>
+</UserControl>

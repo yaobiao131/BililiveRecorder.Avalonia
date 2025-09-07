@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+
+  <PropertyGroup>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <RestoreAdditionalProjectSources>
+      https://api.nuget.org/v3/index.json;
+      https://www.myget.org/F/jint/api/v3/index.json;
+    </RestoreAdditionalProjectSources>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fluid.Core" />
+    <PackageReference Include="Flurl" />
+    <PackageReference Include="Jint" />
+    <PackageReference Include="JsonSubTypes" />
+    <PackageReference Include="HierarchicalPropertyDefault" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" />
+    <PackageReference Include="Nerdbank.Streams" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="Polly" />
+    <PackageReference Include="Polly.Caching.Memory" />
+    <PackageReference Include="PolySharp">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Serilog" />
+    <PackageReference Include="StructLinq" />
+    <PackageReference Include="System.IO.Pipelines" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Platform\BililiveRecorder.BiliBili\BililiveRecorder.BiliBili.csproj" />
+    <ProjectReference Include="..\BililiveRecorder.Common\BililiveRecorder.Common.csproj" />
+    <ProjectReference Include="..\Platform\BililiveRecorder.Douyin\BililiveRecorder.Douyin.csproj" />
+    <ProjectReference Include="..\Platform\BililiveRecorder.Douyu\BililiveRecorder.Douyu.csproj" />
+    <ProjectReference Include="..\BililiveRecorder.Flv\BililiveRecorder.Flv.csproj" />
+    <ProjectReference Include="..\Platform\BIliliveRecorder.Huya\BIliliveRecorder.Huya.csproj" />
+  </ItemGroup>
+
+</Project>

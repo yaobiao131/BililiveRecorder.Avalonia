@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Google.Protobuf" />
+        <PackageReference Include="JavaScriptEngineSwitcher.Extensions.MsDependencyInjection" />
+        <PackageReference Include="JavaScriptEngineSwitcher.V8" />
+        <PackageReference Include="Jint" />
+        <PackageReference Include="Jurassic" />
+        <PackageReference Include="Microsoft.ClearScript.Complete" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\BililiveRecorder.Common\BililiveRecorder.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="webmssdk.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,120 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:local="clr-namespace:BililiveRecorder.Avalonia.Pages"
+             xmlns:converters="clr-namespace:BililiveRecorder.Avalonia.Converters"
+             xmlns:c="clr-namespace:BililiveRecorder.Avalonia.Controls"
+             xmlns:lang="clr-namespace:BililiveRecorder.Avalonia.Lang"
+             xmlns:core="clr-namespace:BililiveRecorder.Core;assembly=BililiveRecorder.Core"
+             xmlns:models="clr-namespace:BililiveRecorder.Avalonia.Models"
+             x:Class="BililiveRecorder.Avalonia.Pages.RoomListPage"
+             x:DataType="core:IRecorder"
+             Name="Root"
+             DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:RootPage},Path=((models:RootModel)DataContext).Recorder,Mode=OneWay}">
+    <UserControl.Resources>
+        <DataTemplate x:Key="AddRoomCardTemplate" DataType="{x:Null}">
+            <Border CornerRadius="5" BoxShadow="0 0 1 1 #66000000">
+                <c:AddRoomCard AddRoomRequested="AddRoomCard_AddRoomRequested" />
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="NormalRoomCardTemplate" DataType="core:Room">
+            <Border CornerRadius="5" BoxShadow="0 0 1 1 #66000000">
+                <c:RoomCard ShowSettingsRequested="RoomCard_ShowSettingsRequested" DeleteRequested="RoomCard_DeleteRequested" />
+            </Border>
+        </DataTemplate>
+        <RecyclingElementFactory x:Key="RoomElementFactory" SelectTemplateKey="RecyclingElementFactory_OnSelectTemplateKey">
+            <RecyclingElementFactory.Templates>
+                <StaticResource x:Key="AddRoomCardTemplate" ResourceKey="AddRoomCardTemplate" />
+                <StaticResource x:Key="NormalRoomCardTemplate" ResourceKey="NormalRoomCardTemplate" />
+            </RecyclingElementFactory.Templates>
+        </RecyclingElementFactory>
+        <converters:BoolToValueConverter x:Key="BooleanToUniformGridLayoutConverter">
+            <converters:BoolToValueConverter.TrueValue>
+                <UniformGridLayout MinItemWidth="230" MinItemHeight="125" ItemsStretch="None" MinRowSpacing="7" MinColumnSpacing="5" />
+            </converters:BoolToValueConverter.TrueValue>
+            <converters:BoolToValueConverter.FalseValue>
+                <UniformGridLayout MinItemWidth="230" MinItemHeight="100" ItemsStretch="None" MinRowSpacing="7" MinColumnSpacing="5" />
+            </converters:BoolToValueConverter.FalseValue>
+        </converters:BoolToValueConverter>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="{Binding #Root.RoomListRowHeight}" />
+            <RowDefinition Height="3" />
+            <RowDefinition Height="{Binding #Root.LogRowHeight}" />
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <Menu>
+                <Separator />
+                <MenuItem Header="{x:Static lang:Resources.RoomListPage_Menu_File}">
+                    <MenuItem Header="{x:Static lang:Resources.RoomListPage_Menu_File_OpenWorkDirectory}" Click="MenuItem_OpenWorkDirectory_Click" />
+                    <MenuItem Header="{x:Static lang:Resources.RoomListPage_Menu_File_SaveConfig}" Click="MenuItem_SaveConfig_Click" />
+                    <Separator />
+                    <MenuItem Header="{x:Static lang:Resources.RoomListPage_Menu_File_ChangeWorkPath}" Click="MenuItem_ChangeWorkPath_Click" />
+                    <Separator />
+                    <MenuItem Header="{x:Static lang:Resources.RoomListPage_Menu_File_ShowLogFilesInExplorer}" Click="MenuItem_ShowLogFilesInExplorer_Click" />
+                </MenuItem>
+                <MenuItem Header="{x:Static lang:Resources.RoomListPage_Menu_View}">
+                    <MenuItem Header="{x:Static lang:Resources.RoomListPage_Menu_Sort_Default}" Tag="{x:Static local:SortedBy.None}" Click="MenuItem_SortBy_Click" />
+                    <MenuItem Header="{x:Static lang:Resources.RoomListPage_Menu_Sort_RoomId}" Tag="{x:Static local:SortedBy.RoomId}" Click="MenuItem_SortBy_Click" />
+                    <MenuItem Header="{x:Static lang:Resources.RoomListPage_Menu_Sort_Status}" Tag="{x:Static local:SortedBy.Status}" Click="MenuItem_SortBy_Click" />
+                    <Separator />
+                    <MenuItem ToggleType="CheckBox" Header="开播时弹出系统通知" IsChecked="{Binding Config.Global.WpfNotifyStreamStart}" />
+                    <MenuItem ToggleType="CheckBox" Header="{x:Static lang:Resources.RoomListPage_Menu_View_ShowTitleAndAreaCheckBox}"
+                              IsChecked="{Binding Config.Global.WpfShowTitleAndArea,Mode=TwoWay}" />
+                    <MenuItem ToggleType="CheckBox" Header="{x:Static lang:Resources.RoomListPage_Menu_View_ShowLogCheckBox}" Click="MenuItem_ShowLog_Click" />
+                </MenuItem>
+                <MenuItem Header="{x:Static lang:Resources.RoomListPage_Menu_AutoRecord}">
+                    <MenuItem Header="{x:Static lang:Resources.RoomListPage_Menu_AutoRecord_EnableAll}" Click="MenuItem_EnableAutoRecAll_Click" />
+                    <MenuItem Header="{x:Static lang:Resources.RoomListPage_Menu_AutoRecord_DisableAll}" Click="MenuItem_DisableAutoRecAll_Click" />
+                    <Separator />
+                    <MenuItem Header="刷新全部房间信息" Click="MenuItem_RefreshAllRoomInfo_Click" />
+                </MenuItem>
+                <MenuItem Header="{x:Static lang:Resources.RoomListPage_Menu_Links}">
+                    <MenuItem Header="{x:Static lang:Resources.RoomListPage_Menu_Links_Website}" Command="{x:Static models:Commands.OpenLink}"
+                              CommandParameter="https://rec.danmuji.org/">
+                        <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource PathIconDataOpenInNew}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="{x:Static lang:Resources.RoomListPage_Menu_Links_FAQ}" Command="{x:Static models:Commands.OpenLink}"
+                              CommandParameter="https://rec.danmuji.org/link/faq/">
+                        <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource PathIconDataOpenInNew}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="{x:Static lang:Resources.RoomListPage_Menu_Links_Sponsor}" Command="{x:Static models:Commands.OpenLink}"
+                              CommandParameter="https://rec.danmuji.org/link/sponsor/">
+                        <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource PathIconDataOpenInNew}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="{x:Static lang:Resources.RoomListPage_Menu_Links_Sponsor}" Command="{x:Static models:Commands.OpenLink}"
+                          CommandParameter="https://rec.danmuji.org/link/sponsor/">
+                    <MenuItem.Icon>
+                        <PathIcon Data="{StaticResource PathIconDataOpenInNew}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </Menu>
+            <Separator />
+        </StackPanel>
+        <ScrollViewer Grid.Row="1">
+            <ItemsRepeater
+                HorizontalAlignment="Stretch" Margin="8"
+                Layout="{Binding Config.Global.WpfShowTitleAndArea,Mode=OneWay,Converter={StaticResource BooleanToUniformGridLayoutConverter}}"
+                ItemsSource="{Binding #Root.RoomList}"
+                ItemTemplate="{StaticResource RoomElementFactory}">
+            </ItemsRepeater>
+        </ScrollViewer>
+        <GridSplitter Grid.Row="2" x:Name="Splitter" ResizeDirection="Rows" IsVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowsPreview="True" />
+        <Border x:Name="LogElement" Grid.Row="3" Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                BorderBrush="{DynamicResource SystemControlBackgroundAccentBrush}" IsVisible="False"
+                BorderThickness="1" CornerRadius="5">
+            <c:LogPanel />
+        </Border>
+    </Grid>
+</UserControl>

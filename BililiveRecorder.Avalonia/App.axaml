@@ -1,0 +1,152 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sty="using:FluentAvalonia.Styling"
+             xmlns:common="clr-namespace:BililiveRecorder.Common;assembly=BililiveRecorder.Common"
+             xmlns:controls="clr-namespace:BililiveRecorder.Avalonia.Controls"
+             xmlns:lang="clr-namespace:BililiveRecorder.Avalonia.Lang"
+             xmlns:m="clr-namespace:BililiveRecorder.Avalonia.Models"
+             x:Class="BililiveRecorder.Avalonia.App"
+             RequestedThemeVariant="Default">
+    <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="Resources/IconResources.axaml" />
+                <ResourceInclude Source="Resources/ConverterResources.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Default">
+                    <Color x:Key="SystemBaseMediumColor">#99000000</Color>
+                    <SolidColorBrush x:Key="SystemControlBackgroundBaseMediumBrush" Color="{StaticResource SystemBaseMediumColor}" />
+                    <SolidColorBrush x:Key="SystemControlBackgroundAccentBrush" Color="{StaticResource SystemAccentColor}" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Light">
+                    <Color x:Key="SystemBaseMediumColor">#99000000</Color>
+                    <SolidColorBrush x:Key="SystemControlBackgroundBaseMediumBrush" Color="{StaticResource SystemBaseMediumColor}" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <Color x:Key="SystemBaseMediumColor">#99FFFFFF</Color>
+                    <SolidColorBrush x:Key="SystemControlBackgroundBaseMediumBrush" Color="{StaticResource SystemBaseMediumColor}" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+        <MenuFlyout ShowMode="Standard" x:Key="CopyTextContextMenu">
+            <MenuItem Header="{x:Static lang:Resources.Global_Copy}" Command="{x:Static m:Commands.Copy}"
+                      DataContext="{Binding $parent[Popup].PlacementTarget}" CommandParameter="{ReflectionBinding Text}" />
+        </MenuFlyout>
+        <DataTemplate x:Key="RoomCardStatsPopup" x:DataType="common:IRoom">
+            <Grid>
+                <TextBlock IsVisible="{Binding Stats.DurationRatio,Converter={StaticResource IsNaNToVisibilityCollapsedConverter}}"
+                           TextAlignment="Center" Text="{x:Static lang:Resources.RoomCard_Status_SpeedIndicator_NoData}" />
+                <StackPanel IsVisible="{Binding Stats.DurationRatio,Converter={StaticResource InvertIsNaNToVisibilityCollapsedConverter}}">
+                    <TextBlock Text="{Binding Stats.StreamHost,StringFormat=直播服务器: \{0\}}" />
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <Binding Path="Stats.DurationRatio" StringFormat="{x:Static lang:Resources.RoomCard_Status_SpeedIndicator_SpeedInPercentage}" Mode="OneWay" />
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <Binding Path="Stats.FileMaxTimestamp" StringFormat="{x:Static lang:Resources.RoomCard_Status_SpeedIndicator_CurrentFileDuration}" Mode="OneWay" />
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <Binding Path="Stats.SessionMaxTimestamp" StringFormat="{x:Static lang:Resources.RoomCard_Status_SpeedIndicator_TotalFileDuration}" Mode="OneWay" />
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <Binding Path="Stats.SessionDuration" StringFormat="{x:Static lang:Resources.RoomCard_Status_SpeedIndicator_SessionDuration}" Mode="OneWay" />
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <Binding Path="Stats.TotalInputBytes" StringFormat="{x:Static lang:Resources.RoomCard_Status_SpeedIndicator_TotalnputBytes}" Mode="OneWay" />
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <Binding Path="Stats.TotalOutputBytes" StringFormat="{x:Static lang:Resources.RoomCard_Status_SpeedIndicator_TotalOutputBytes}" Mode="OneWay" />
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock Margin="0,5,0,0" Text="{x:Static lang:Resources.RoomCard_Status_SpeedIndicator_Description}" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="RoomDialogHeader" DataType="{x:Type common:IRoom}">
+            <StackPanel>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                           Theme="{DynamicResource SubtitleTextBlockStyle}"
+                           TextWrapping="NoWrap" TextAlignment="Center"
+                           TextTrimming="CharacterEllipsis"
+                           Text="{Binding Name,Mode=OneWay}" ToolTip.Tip="{Binding Name,Mode=OneWay}" />
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <PathIcon Height="10" Data="{StaticResource PathIconDataUpperCaseIdentifier}" />
+                    <TextBlock
+                        Text="{Binding RoomConfig.RoomId,StringFormat=\{0\},Mode=OneWay}"
+                        Margin="4,0" />
+                    <PathIcon Height="10" Data="{StaticResource PathIconDataLowerCaseIdentifier}" Margin="3,0"
+                              IsVisible="{Binding ShortId,Converter={StaticResource ShortRoomIdToVisibilityConverter}}" />
+                    <TextBlock
+                        Text="{Binding ShortId,StringFormat=\{0\},Mode=OneWay}"
+                        IsVisible="{Binding ShortId,Converter={StaticResource ShortRoomIdToVisibilityConverter}}" />
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+    </Application.Resources>
+    <Application.Styles>
+        <sty:FluentAvaloniaTheme PreferSystemTheme="True" PreferUserAccentColor="True" UseSystemFontOnWindows="True" />
+        <Style Selector="HeaderedContentControl.GroupBox">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Grid RowDefinitions="Auto,*" ColumnDefinitions="Auto,*">
+
+                        <!-- Header -->
+                        <Border
+                            ZIndex="1"
+                            Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                            Padding="5,0,5,0"
+                            Margin="5,0,0,0">
+                            <TextBlock
+                                Text="{TemplateBinding Header}"
+                                FontWeight="Bold" />
+                        </Border>
+
+                        <!-- Content Area -->
+                        <Border
+                            Grid.RowSpan="2"
+                            Padding="0,5,0,0"
+                            Grid.ColumnSpan="2"
+                            CornerRadius="4"
+                            Margin="0,10,0,0"
+                            BorderBrush="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                            BorderThickness="1">
+                            <ContentPresenter
+                                Name="PART_ContentPresenter"
+                                Padding="8"
+                                Content="{TemplateBinding Content}" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="controls|SettingWithDefault">
+            <Setter Property="Template">
+                <ControlTemplate x:DataType="controls:SettingWithDefault">
+                    <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto">
+                        <TextBlock Text="{TemplateBinding Header}"
+                                   IsVisible="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Header.Length,Converter={StaticResource ShortRoomIdToVisibilityConverter}}" />
+                        <ContentPresenter Name="PART_ContentPresenter" Grid.Row="1"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          IsEnabled="{TemplateBinding IsSettingNotUsingDefault}" />
+                        <CheckBox Content="{x:Static lang:Resources.SettingWithDefault_Default}" Margin="10,0,0,0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top"
+                                  HorizontalAlignment="Left"
+                                  IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, Path=!IsSettingNotUsingDefault}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+    </Application.Styles>
+</Application>

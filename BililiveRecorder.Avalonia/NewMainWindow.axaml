@@ -1,0 +1,19 @@
+<ui:AppWindow xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              xmlns:ui="clr-namespace:FluentAvalonia.UI.Windowing;assembly=FluentAvalonia"
+              xmlns:lang="clr-namespace:BililiveRecorder.Avalonia.Lang"
+              Width="1000" Height="650" MinHeight="400" MinWidth="340"
+              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+              x:Class="BililiveRecorder.Avalonia.NewMainWindow"
+              WindowStartupLocation="CenterScreen"
+              ExtendClientAreaChromeHints="NoChrome"
+              Closing="Window_Closing"
+              Loaded="Window_OnLoaded"
+              Icon="/Assets/Icons/ico.ico">
+    <ui:AppWindow.Title>
+        <Binding StringFormat="{x:Static lang:Resources.Window_Title}" Path="SoftwareVersion" RelativeSource="{RelativeSource Mode=Self}" />
+    </ui:AppWindow.Title>
+    <!-- <pages:RootPage x:Name="RootPage" /> -->
+</ui:AppWindow>

@@ -1,0 +1,19 @@
+﻿<ui:ContentDialog xmlns="https://github.com/avaloniaui"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:ui="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+                  xmlns:lang="clr-namespace:BililiveRecorder.Avalonia.Lang"
+                  xmlns:core="clr-namespace:BililiveRecorder.Douyin.Model.Danmaku;assembly=BililiveRecorder.Douyin"
+                  mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+                  x:Class="BililiveRecorder.Avalonia.Controls.DeleteRoomConfirmDialog"
+                  d:DataContext="{d:DesignInstance core:Room}"
+                  x:DataType="core:Room"
+                  DefaultButton="Close"
+                  PrimaryButtonText="{x:Static lang:Resources.Global_Delete}"
+                  CloseButtonText="{x:Static lang:Resources.Global_Cancel}">
+    <StackPanel>
+        <TextBlock TextAlignment="Center" FontSize="18" Text="{x:Static lang:Resources.DeleteRoomConfirmDialog_Title}" Margin="0,0,0,5" />
+        <ContentControl Content="{Binding}" ContentTemplate="{StaticResource RoomDialogHeader}" />
+    </StackPanel>
+</ui:ContentDialog>

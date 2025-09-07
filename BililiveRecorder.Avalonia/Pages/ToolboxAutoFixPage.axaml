@@ -1,0 +1,176 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:lang="clr-namespace:BililiveRecorder.Avalonia.Lang"
+             xmlns:local="clr-namespace:BililiveRecorder.Avalonia.Pages"
+             xmlns:t="clr-namespace:BililiveRecorder.ToolBox.Tool.Analyze;assembly=BililiveRecorder.ToolBox"
+             xmlns:tr="clr-namespace:BililiveRecorder.ToolBox.ProcessingRules;assembly=BililiveRecorder.ToolBox"
+             mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="900"
+             DataContext="{x:Null}"
+             x:Class="BililiveRecorder.Avalonia.Pages.ToolboxAutoFixPage">
+    <Border Background="Transparent" DragDrop.AllowDrop="True" x:Name="DragBorder">
+        <Grid Margin="20" RowDefinitions="Auto,*">
+            <DockPanel Margin="0,0,0,10">
+                <Button VerticalAlignment="Bottom" DockPanel.Dock="Right" Content="{x:Static lang:Resources.Toolbox_AutoFix_ButtonNotFixed}">
+                    <Button.Flyout>
+                        <Flyout Placement="LeftEdgeAlignedTop">
+                            <StackPanel>
+                                <TextBlock Text="{x:Static lang:Resources.Toolbox_AutoFix_NotFixed_Description}" />
+                                <HyperlinkButton NavigateUri="https://rec.danmuji.org/link/fix_feedback/" Content="{x:Static lang:Resources.Toolbox_AutoFix_NotFixed_LearnMore}" />
+                                <Button Margin="0,15,0,10" HorizontalAlignment="Center" Click="Export_Button_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <PathIcon Margin="0,0,5,0" Data="{StaticResource PathIconDataExport}" />
+                                        <TextBlock Text="{x:Static lang:Resources.Toolbox_AutoFix_NotFixed_ButtonExportData}" />
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+                <Button VerticalAlignment="Bottom" DockPanel.Dock="Right" Margin="5,0" Click="Fix_Button_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <PathIcon Height="14" Margin="0,0,5,0" Data="{StaticResource PathIconDataAutoFix}" />
+                        <TextBlock Text="{x:Static lang:Resources.Toolbox_AutoFix_ButtonFix}" />
+                    </StackPanel>
+                </Button>
+                <Button VerticalAlignment="Bottom" DockPanel.Dock="Right" Click="Analyze_Button_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <PathIcon Height="14" Margin="0,0,5,0" Data="{StaticResource PathIconDataMagnifyScan}" />
+                        <TextBlock Text="{x:Static lang:Resources.Toolbox_AutoFix_ButtonAnalyze}" />
+                    </StackPanel>
+                </Button>
+                <Button VerticalAlignment="Bottom" DockPanel.Dock="Right" Margin="0,0,5,0">
+                    <StackPanel Orientation="Horizontal">
+                        <PathIcon Height="14" Margin="0,0,5,0" Data="{StaticResource PathIconDataCogOutline}" />
+                        <TextBlock Text="设置" />
+                    </StackPanel>
+                    <Button.Flyout>
+                        <Flyout Placement="Bottom">
+                            <Grid DataContext="{x:Null}" x:Name="SettingsArea" x:DataType="local:AutoFixSettings">
+                                <StackPanel Margin="10" Orientation="Vertical">
+                                    <CheckBox Content="检测到可能缺少数据时分段" IsChecked="{Binding SplitOnScriptTag}" />
+                                    <CheckBox Content="使用实验性花屏修复判定逻辑" IsChecked="{Binding DisableSplitOnH264AnnexB}" />
+                                </StackPanel>
+                            </Grid>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+                <Button VerticalAlignment="Bottom" DockPanel.Dock="Right" Margin="0,0,5,0" Content="{x:Static lang:Resources.Toolbox_AutoFix_ButtonSelectInput}"
+                        Click="SelectFile_Button_Click" />
+                <TextBox x:Name="FileNameTextBox" />
+            </DockPanel>
+            <Border Grid.Row="1" BorderThickness="1" CornerRadius="5" x:Name="AnalyzeResultDisplayArea" DataContext="{x:Null}"
+                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                    BorderBrush="{DynamicResource SystemAccentColor}">
+                <Border.Resources>
+                    <DataTemplate x:Key="NullAnalyzeResult">
+                        <StackPanel Margin="16">
+                            <TextBlock Text="{x:Static lang:Resources.Toolbox_AutoFix_AnalyzeResult_NoDataTitle}" FontSize="26" VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                            <TextBlock Text="{x:Static lang:Resources.Toolbox_AutoFix_AnalyzeResult_NoDataNote}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </DataTemplate>
+                    <DataTemplate x:Key="FlvStatsPanel" DataType="{x:Type tr:FlvStats}">
+                        <Grid RowDefinitions="Auto,Auto,*">
+                            <TextBlock Grid.Row="0" HorizontalAlignment="Center">
+                                <TextBlock.Text>
+                                    <Binding StringFormat="{x:Static lang:Resources.Toolbox_AutoFix_AnalyzeResult_Stats_FrameCountTemplate}" Path="FrameCount" Mode="OneWay" />
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <TextBlock Grid.Row="1" HorizontalAlignment="Center">
+                                <TextBlock.Text>
+                                    <Binding StringFormat="{x:Static lang:Resources.Toolbox_AutoFix_AnalyzeResult_Stats_AvgFPS}" Path="FramePerSecond" Mode="OneWay" />
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <DataGrid Grid.Row="2" ItemsSource="{Binding FrameDurations}" Margin="5" BorderThickness="1"
+                                      BorderBrush="{DynamicResource SystemControlBackgroundAccentBrush}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="{x:Static lang:Resources.Toolbox_AutoFix_AnalyzeResult_Stats_FrameDuration}"
+                                                        Binding="{Binding Key,StringFormat=\{0\} ms}" />
+                                    <DataGridTextColumn Header="{x:Static lang:Resources.Toolbox_AutoFix_AnalyzeResult_Stats_FrameCount}"
+                                                        Binding="{Binding Value}" />
+
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </DataTemplate>
+                    <DataTemplate x:Key="NormalAnalyzeResult" DataType="{x:Type t:AnalyzeResponse}">
+                        <Grid Margin="5" RowDefinitions="Auto,Auto,Auto,Auto,*">
+                            <TextBox Grid.Row="0" IsReadOnly="True" Text="{Binding InputPath}" />
+                            <TextBlock Grid.Row="1" HorizontalAlignment="Center" FontSize="24" Text="{x:Static lang:Resources.Toolbox_AutoFix_AnalyzeResult_FixNotNeeded}"
+                                       Foreground="Green"
+                                       IsVisible="{Binding !NeedFix}" />
+                            <TextBlock Grid.Row="1" HorizontalAlignment="Center" FontSize="24" Text="{x:Static lang:Resources.Toolbox_AutoFix_AnalyzeResult_FixNeeded}"
+                                       Foreground="Red"
+                                       IsVisible="{Binding NeedFix}" />
+                            <TextBlock Grid.Row="2" HorizontalAlignment="Center" FontSize="15" Foreground="Red"
+                                       IsVisible="{Binding Unrepairable}"
+                                       Text="{x:Static lang:Resources.Toolbox_AutoFix_AnalyzeResult_ContainsUnrepairable}" />
+                            <TextBlock Grid.Row="2" HorizontalAlignment="Center" FontSize="15" Foreground="Yellow" TextAlignment="Center"
+                                       IsVisible="{Binding FfmpegDetected}"
+                                       Text="检测到此文件可能是 FFmpeg 输出的&#x0a;文件中的问题可能已经无法修复（如果有问题的话）&#x0a;只有从直播服务器直出的未处理过的数据可以被修复" />
+                            <StackPanel Grid.Row="3" HorizontalAlignment="Center" Margin="10">
+                                <TextBlock Margin="0,0,0,5">
+                                    <TextBlock.Text>
+                                        <Binding StringFormat="{x:Static lang:Resources.Toolbox_AutoFix_AnalyzeResult_OutputFileCount}" Path="OutputFileCount" Mode="OneWay" />
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <Binding StringFormat="{x:Static lang:Resources.Toolbox_AutoFix_AnalyzeResult_IssueTypeTimestampOffset}" Path="IssueTypeTimestampOffset"
+                                                 Mode="OneWay" />
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <Binding StringFormat="{x:Static lang:Resources.Toolbox_AutoFix_AnalyzeResult_IssueTypeTimestampJump}" Path="IssueTypeTimestampJump"
+                                                 Mode="OneWay" />
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <Binding StringFormat="{x:Static lang:Resources.Toolbox_AutoFix_AnalyzeResult_IssueTypeDecodingHeader}" Path="IssueTypeDecodingHeader"
+                                                 Mode="OneWay" />
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <Binding StringFormat="{x:Static lang:Resources.Toolbox_AutoFix_AnalyzeResult_IssueTypeRepeatingData}" Path="IssueTypeRepeatingData"
+                                                 Mode="OneWay" />
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <Binding StringFormat="{x:Static lang:Resources.Toolbox_AutoFix_AnalyzeResult_IssueTypeOther}" Path="IssueTypeOther" Mode="OneWay" />
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <Binding StringFormat="{x:Static lang:Resources.Toolbox_AutoFix_AnalyzeResult_IssueTypeUnrepairable}" Path="IssueTypeUnrepairable"
+                                                 Mode="OneWay" />
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </StackPanel>
+                            <Grid Grid.Row="4" Margin="10" ColumnDefinitions="*,Auto,*" RowDefinitions="Auto,Auto,*">
+                                <StackPanel HorizontalAlignment="Center" Grid.ColumnSpan="3">
+                                    <TextBlock HorizontalAlignment="Center" FontSize="20" Text="{x:Static lang:Resources.Toolbox_AutoFix_AnalyzeResult_Stats_Title}" />
+                                    <TextBlock HorizontalAlignment="Center" Text="{x:Static lang:Resources.Toolbox_AutoFix_AnalyzeResult_Stats_Disclaimer}" />
+                                </StackPanel>
+                                <Separator Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" />
+                                <TextBlock Grid.Row="1" Grid.Column="0" TextAlignment="Center" FontSize="16"
+                                           Text="{x:Static lang:Resources.Toolbox_AutoFix_AnalyzeResult_Stats_Video}" />
+                                <TextBlock Grid.Row="1" Grid.Column="2" TextAlignment="Center" FontSize="16"
+                                           Text="{x:Static lang:Resources.Toolbox_AutoFix_AnalyzeResult_Stats_Audio}" />
+                                <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding VideoStats}" ContentTemplate="{StaticResource FlvStatsPanel}" />
+                                <ContentControl Grid.Row="2" Grid.Column="2" Content="{Binding AudioStats}" ContentTemplate="{StaticResource FlvStatsPanel}" />
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                    <!-- <c:NullValueTemplateSelector x:Key="SelectorTemplate" Normal="{StaticResource NormalAnalyzeResult}" Null="{StaticResource NullAnalyzeResult}" /> -->
+                </Border.Resources>
+                <!-- <ContentControl Content="{Binding}" ContentTemplateSelector="{StaticResource SelectorTemplate}" /> -->
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

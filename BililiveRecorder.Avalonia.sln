@@ -1,0 +1,84 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BililiveRecorder.Avalonia", "BililiveRecorder.Avalonia\BililiveRecorder.Avalonia.csproj", "{07502DA8-AD5C-4538-9372-C1B337554DB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BililiveRecorder.Core", "BililiveRecorder.Core\BililiveRecorder.Core.csproj", "{76175E87-72D7-4BD3-894D-D3A113A19DA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BililiveRecorder.Flv", "BililiveRecorder.Flv\BililiveRecorder.Flv.csproj", "{F8694C5F-9B6C-4218-9052-0619439916A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BililiveRecorder.Common", "BililiveRecorder.Common\BililiveRecorder.Common.csproj", "{FC2719EF-8EDF-41F2-B0BD-578F76C0F0EC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platform", "Platform", "{E3ADAC71-9691-42C3-B413-368EBA3ACBA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIliliveRecorder.Huya", "Platform\BIliliveRecorder.Huya\BIliliveRecorder.Huya.csproj", "{D9E7EFD1-5040-4CA8-B50A-5885A9D32FF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BililiveRecorder.Douyu", "Platform\BililiveRecorder.Douyu\BililiveRecorder.Douyu.csproj", "{74ECACCC-5536-4056-8184-3259DCCF3CA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BililiveRecorder.Douyin", "Platform\BililiveRecorder.Douyin\BililiveRecorder.Douyin.csproj", "{EB3EFA3A-9F94-413C-A008-50E99D235860}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BililiveRecorder.BiliBili", "Platform\BililiveRecorder.BiliBili\BililiveRecorder.BiliBili.csproj", "{2BC0F167-533F-4D28-B0F5-2A5FEA884234}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4600C96E-5642-4771-ACDE-24876D0DC5FD}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		Directory.Packages.props = Directory.Packages.props
+		GitVersion.yml = GitVersion.yml
+		.gitattributes = .gitattributes
+		LICENSE = LICENSE
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BililiveRecorder.ToolBox", "BililiveRecorder.ToolBox\BililiveRecorder.ToolBox.csproj", "{F1807EAC-8793-46F4-B679-7ED42766EDEA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{07502DA8-AD5C-4538-9372-C1B337554DB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07502DA8-AD5C-4538-9372-C1B337554DB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07502DA8-AD5C-4538-9372-C1B337554DB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07502DA8-AD5C-4538-9372-C1B337554DB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76175E87-72D7-4BD3-894D-D3A113A19DA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76175E87-72D7-4BD3-894D-D3A113A19DA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76175E87-72D7-4BD3-894D-D3A113A19DA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76175E87-72D7-4BD3-894D-D3A113A19DA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8694C5F-9B6C-4218-9052-0619439916A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8694C5F-9B6C-4218-9052-0619439916A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8694C5F-9B6C-4218-9052-0619439916A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8694C5F-9B6C-4218-9052-0619439916A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC2719EF-8EDF-41F2-B0BD-578F76C0F0EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC2719EF-8EDF-41F2-B0BD-578F76C0F0EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC2719EF-8EDF-41F2-B0BD-578F76C0F0EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC2719EF-8EDF-41F2-B0BD-578F76C0F0EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9E7EFD1-5040-4CA8-B50A-5885A9D32FF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9E7EFD1-5040-4CA8-B50A-5885A9D32FF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9E7EFD1-5040-4CA8-B50A-5885A9D32FF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9E7EFD1-5040-4CA8-B50A-5885A9D32FF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74ECACCC-5536-4056-8184-3259DCCF3CA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74ECACCC-5536-4056-8184-3259DCCF3CA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74ECACCC-5536-4056-8184-3259DCCF3CA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74ECACCC-5536-4056-8184-3259DCCF3CA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB3EFA3A-9F94-413C-A008-50E99D235860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB3EFA3A-9F94-413C-A008-50E99D235860}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB3EFA3A-9F94-413C-A008-50E99D235860}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB3EFA3A-9F94-413C-A008-50E99D235860}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BC0F167-533F-4D28-B0F5-2A5FEA884234}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BC0F167-533F-4D28-B0F5-2A5FEA884234}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BC0F167-533F-4D28-B0F5-2A5FEA884234}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BC0F167-533F-4D28-B0F5-2A5FEA884234}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1807EAC-8793-46F4-B679-7ED42766EDEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1807EAC-8793-46F4-B679-7ED42766EDEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1807EAC-8793-46F4-B679-7ED42766EDEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1807EAC-8793-46F4-B679-7ED42766EDEA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D9E7EFD1-5040-4CA8-B50A-5885A9D32FF0} = {E3ADAC71-9691-42C3-B413-368EBA3ACBA7}
+		{74ECACCC-5536-4056-8184-3259DCCF3CA3} = {E3ADAC71-9691-42C3-B413-368EBA3ACBA7}
+		{EB3EFA3A-9F94-413C-A008-50E99D235860} = {E3ADAC71-9691-42C3-B413-368EBA3ACBA7}
+		{2BC0F167-533F-4D28-B0F5-2A5FEA884234} = {E3ADAC71-9691-42C3-B413-368EBA3ACBA7}
+	EndGlobalSection
+EndGlobal

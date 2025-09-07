@@ -1,0 +1,112 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:lang="clr-namespace:BililiveRecorder.Avalonia.Lang"
+             xmlns:models="clr-namespace:BililiveRecorder.Avalonia.Models"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BililiveRecorder.Avalonia.Pages.RootPage">
+    <Grid>
+        <ui:NavigationView IsBackEnabled="False" IsBackButtonVisible="False"
+                           IsSettingsVisible="False" ExpandedModeThresholdWidth="1115"
+                           IsPaneOpen="False" OpenPaneLength="200"
+                           SelectionChanged="NavigationView_OnSelectionChanged">
+            <ui:NavigationView.PaneCustomContent>
+                <StackPanel>
+                    <Menu>
+                        <MenuItem>
+                            <MenuItem.Header>
+                                <PathIcon Width="16" Height="16" Data="{StaticResource PathIconDataTranslate}" />
+                            </MenuItem.Header>
+                            <MenuItem Header="简体中文" CommandParameter="" Command="{x:Static models:Commands.SetLang}" />
+                            <MenuItem Header="繁體中文" CommandParameter="zh-Hant" Command="{x:Static models:Commands.SetLang}" />
+                            <MenuItem Header="日本語" CommandParameter="ja" Command="{x:Static models:Commands.SetLang}" />
+                            <MenuItem Header="English" CommandParameter="en" Command="{x:Static models:Commands.SetLang}" />
+                            <MenuItem Header="喵ニャーMeow🐱🐈" x:Name="JokeLangSelectionMenuItem" CommandParameter="en-PN" Command="{x:Static models:Commands.SetLang}" />
+                            <Separator />
+                            <MenuItem Header="参与翻译" CommandParameter="https://rec.danmuji.org/link/translate/">
+                                <MenuItem.Icon>
+                                    <PathIcon Data="{StaticResource PathIconDataOpenInNew}" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </MenuItem>
+                    </Menu>
+                    <Menu>
+                        <MenuItem Click="SwitchLightDarkTheme_Click">
+                            <MenuItem.Header>
+                                <PathIcon Width="16" Height="16" Data="{StaticResource PathIconDataThemeLightDark}" />
+                            </MenuItem.Header>
+                        </MenuItem>
+                    </Menu>
+                </StackPanel>
+            </ui:NavigationView.PaneCustomContent>
+            <ui:NavigationView.PaneFooter>
+                <Grid Width="40" Height="40" x:Name="DebugBuildIcon" IsVisible="False" HorizontalAlignment="Left">
+                    <ui:FAPathIcon Width="24" Height="24" ToolTip.Tip="Debug Build 测试版" Data="{StaticResource PathIconDataBugOutline}" />
+                </Grid>
+            </ui:NavigationView.PaneFooter>
+            <ui:NavigationView.MenuItems>
+                <ui:NavigationViewItem Content="{x:Static lang:Resources.RootPage_NavigationViewItem_AnnouncementPage}" Tag="AnnouncementPage" IsSelected="True">
+                    <ui:NavigationViewItem.IconSource>
+                        <ui:PathIconSource Data="{StaticResource PathIconDataBullhornOutline}" />
+                    </ui:NavigationViewItem.IconSource>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem Content="{x:Static lang:Resources.RootPage_NavigationViewItem_RoomListPage}" Tag="RoomListPage"
+                                       IsEnabled="False" x:Name="RoomListPageNavigationViewItem">
+                    <ui:NavigationViewItem.IconSource>
+                        <ui:PathIconSource Data="{StaticResource PathIconDataHomeOutline}" />
+                    </ui:NavigationViewItem.IconSource>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem Content="{x:Static lang:Resources.Toolbox_Title}" SelectsOnInvoked="False">
+                    <ui:NavigationViewItem.IconSource>
+                        <ui:PathIconSource Data="{StaticResource PathIconDataToolboxOutline}" />
+                    </ui:NavigationViewItem.IconSource>
+                    <ui:NavigationViewItem.MenuItems>
+                        <ui:NavigationViewItem Content="{x:Static lang:Resources.Toolbox_AutoFix_Title}" Tag="ToolboxAutoFixPage">
+                            <ui:NavigationViewItem.IconSource>
+                                <ui:PathIconSource Data="{StaticResource PathIconDataAutoFix}" />
+                            </ui:NavigationViewItem.IconSource>
+                        </ui:NavigationViewItem>
+                        <ui:NavigationViewItem Content="{x:Static lang:Resources.Toolbox_Remux_Title}" Tag="ToolboxRemuxPage">
+                            <ui:NavigationViewItem.IconSource>
+                                <ui:PathIconSource Data="{StaticResource PathIconDataAlphaRCircleOutline}" />
+                            </ui:NavigationViewItem.IconSource>
+                        </ui:NavigationViewItem>
+                        <ui:NavigationViewItem Content="{x:Static lang:Resources.Toolbox_Merge_Title}" Tag="ToolboxDanmakuMergerPage">
+                            <ui:NavigationViewItem.IconSource>
+                                <ui:PathIconSource Data="{StaticResource PathIconDataMerge}" />
+                            </ui:NavigationViewItem.IconSource>
+                        </ui:NavigationViewItem>
+                    </ui:NavigationViewItem.MenuItems>
+                </ui:NavigationViewItem>
+            </ui:NavigationView.MenuItems>
+            <ui:NavigationView.FooterMenuItems>
+                <ui:NavigationViewItem Tag="AdvancedSettingsPage" x:Name="AdvancedSettingsPageItem">
+                    <ui:NavigationViewItem.IconSource>
+                        <ui:PathIconSource Data="{StaticResource PathIconDataCogs}" />
+                    </ui:NavigationViewItem.IconSource>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem Content="{x:Static lang:Resources.RootPage_NavigationViewItem_SettingsPage}" Tag="SettingsPage"
+                                       IsEnabled="False"
+                                       x:Name="SettingsPageNavigationViewItem" PointerReleased="SettingsPageNavigationViewItem_OnPointerReleased">
+                    <ui:NavigationViewItem.IconSource>
+                        <ui:PathIconSource Data="{StaticResource PathIconDataCogOutline}" />
+                    </ui:NavigationViewItem.IconSource>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem Content="{x:Static lang:Resources.RootPage_NavigationViewItem_LogPage}" Tag="LogPage">
+                    <ui:NavigationViewItem.IconSource>
+                        <ui:PathIconSource Data="{StaticResource PathIconDataPaperRollOutline}" />
+                    </ui:NavigationViewItem.IconSource>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem Content="{x:Static lang:Resources.About_Title}" Tag="AboutPage">
+                    <ui:NavigationViewItem.IconSource>
+                        <ui:PathIconSource Data="{StaticResource PathIconDataInformationOutline}" />
+                    </ui:NavigationViewItem.IconSource>
+                </ui:NavigationViewItem>
+            </ui:NavigationView.FooterMenuItems>
+            <ui:Frame x:Name="MainFrame" Navigated="MainFrame_Navigated" />
+        </ui:NavigationView>
+
+    </Grid>
+</UserControl>

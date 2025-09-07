@@ -1,0 +1,48 @@
+﻿<ui:ContentDialog
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:local="clr-namespace:BililiveRecorder.Avalonia.Controls"
+    xmlns:lang="clr-namespace:BililiveRecorder.Avalonia.Lang"
+    xmlns:models="clr-namespace:BililiveRecorder.Avalonia.Models"
+    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+    d:DataContext="{d:DesignInstance Type=local:WorkDirectorySelectorDialog}"
+    x:Class="BililiveRecorder.Avalonia.Controls.WorkDirectorySelectorDialog"
+    DefaultButton="Primary"
+    PrimaryButtonText="{x:Static lang:Resources.Global_Confirm}"
+    SecondaryButtonText="{x:Static lang:Resources.Toolbox_Title}"
+    CloseButtonText="{x:Static lang:Resources.Global_Quit}"
+    x:DataType="local:WorkDirectorySelectorDialog">
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,*">
+        <TextBlock Text="{x:Static lang:Resources.WorkDirectorySelector_Title}" TextAlignment="Center" FontSize="26" Width="300" />
+        <Menu VerticalAlignment="Center" HorizontalAlignment="Right">
+            <MenuItem>
+                <MenuItem.Header>
+                    <PathIcon Width="20" Height="20" Data="{StaticResource PathIconDataTranslate}" />
+                </MenuItem.Header>
+                <MenuItem Header="简体中文" CommandParameter="" />
+                <MenuItem Header="繁體中文" CommandParameter="zh-Hant" />
+                <MenuItem Header="日本語" CommandParameter="ja" />
+                <MenuItem Header="English" CommandParameter="en" />
+                <MenuItem Header="喵ニャーMeow🐱🐈" x:Name="JokeLangSelectionMenuItem" CommandParameter="en-PN" />
+                <Separator />
+                <MenuItem Header="参与翻译" Command="{x:Static models:Commands.OpenLink}" CommandParameter="https://rec.danmuji.org/link/translate/">
+                    <MenuItem.Icon>
+                        <PathIcon Data="{StaticResource PathIconDataOpenInNew}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <TextBlock Grid.Row="1" Text="{Binding Error}"
+                   Margin="0,5" TextAlignment="Center" FontSize="16" Foreground="#FFFF2828" />
+        <Grid Grid.Row="2" ColumnDefinitions="*,Auto">
+            <TextBox VerticalAlignment="Center" FontSize="14"
+                     Text="{Binding Path, UpdateSourceTrigger=PropertyChanged}"
+                     ContextMenu="{x:Null}" />
+            <Button Grid.Column="1" Click="Button_OnClick" Content="{x:Static lang:Resources.WorkDirectorySelector_Browse}" />
+        </Grid>
+        <CheckBox Grid.Row="3" IsChecked="{Binding SkipAsking}" Content="{x:Static lang:Resources.WorkDirectorySelector_SkipAsking}" />
+    </Grid>
+</ui:ContentDialog>

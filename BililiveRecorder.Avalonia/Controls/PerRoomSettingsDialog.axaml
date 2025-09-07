@@ -1,0 +1,133 @@
+<ui:ContentDialog
+    x:Class="BililiveRecorder.Avalonia.Controls.PerRoomSettingsDialog"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:config="clr-namespace:BililiveRecorder.Common.Config;assembly=BililiveRecorder.Common"
+    xmlns:core="clr-namespace:BililiveRecorder.Core;assembly=BililiveRecorder.Core"
+    xmlns:ui="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+    xmlns:local="clr-namespace:BililiveRecorder.Avalonia.Controls"
+    xmlns:lang="clr-namespace:BililiveRecorder.Avalonia.Lang"
+    d:DataContext="{d:DesignInstance core:Room}"
+    x:DataType="core:Room"
+    DefaultButton="Close"
+    CloseButtonText="{x:Static lang:Resources.Global_Close}"
+    mc:Ignorable="d">
+    <Grid RowDefinitions="Auto,*">
+        <StackPanel>
+            <ContentControl Content="{Binding}" ContentTemplate="{StaticResource RoomDialogHeader}" />
+            <TextBlock TextAlignment="Center" Text="Tip: 这里是房间独立设置，是对↙全局设置↙的覆盖" />
+            <Separator />
+        </StackPanel>
+        <ScrollViewer Grid.Row="1">
+            <StackPanel Orientation="Vertical" Spacing="5" DataContext="{Binding RoomConfig}">
+                <HeaderedContentControl Header="{x:Static lang:Resources.Settings_Danmaku_Title}" Classes="GroupBox">
+                    <StackPanel>
+                        <local:SettingWithDefault IsSettingNotUsingDefault="{Binding HasRecordDanmaku}">
+                            <ToggleSwitch IsChecked="{Binding RecordDanmaku}" OnContent="{x:Static lang:Resources.Settings_Danmaku_ToggleSwitch_Enabled}"
+                                          OffContent="{x:Static lang:Resources.Settings_Danmaku_ToggleSwitch_Enabled}" />
+                        </local:SettingWithDefault>
+                        <local:SettingWithDefault IsSettingNotUsingDefault="{Binding HasRecordDanmakuSuperChat}">
+                            <ToggleSwitch IsChecked="{Binding RecordDanmakuSuperChat}" OnContent="{x:Static lang:Resources.Settings_Danmaku_ToggleSwitch_SuperChat}"
+                                          OffContent="{x:Static lang:Resources.Settings_Danmaku_ToggleSwitch_SuperChat}" />
+                        </local:SettingWithDefault>
+                        <local:SettingWithDefault IsSettingNotUsingDefault="{Binding HasRecordDanmakuGuard}">
+                            <ToggleSwitch IsChecked="{Binding RecordDanmakuGuard}" OnContent="{x:Static lang:Resources.Settings_Danmaku_ToggleSwitch_Guard}"
+                                          OffContent="{x:Static lang:Resources.Settings_Danmaku_ToggleSwitch_Guard}" />
+                        </local:SettingWithDefault>
+                        <local:SettingWithDefault IsSettingNotUsingDefault="{Binding HasRecordDanmakuGift}">
+                            <ToggleSwitch IsChecked="{Binding RecordDanmakuGift}" OnContent="{x:Static lang:Resources.Settings_Danmaku_ToggleSwitch_Gift}"
+                                          OffContent="{x:Static lang:Resources.Settings_Danmaku_ToggleSwitch_Gift}" />
+                        </local:SettingWithDefault>
+                        <local:SettingWithDefault IsSettingNotUsingDefault="{Binding HasRecordDanmakuRaw}">
+                            <ToggleSwitch IsChecked="{Binding RecordDanmakuRaw}" OnContent="{x:Static lang:Resources.Settings_Danmaku_ToggleSwitch_Raw}"
+                                          OffContent="{x:Static lang:Resources.Settings_Danmaku_ToggleSwitch_Raw}" />
+                        </local:SettingWithDefault>
+                    </StackPanel>
+                </HeaderedContentControl>
+                <HeaderedContentControl Header="{x:Static lang:Resources.Settings_RecordMode_Title}" Classes="GroupBox">
+                    <StackPanel>
+                        <local:SettingWithDefault IsSettingNotUsingDefault="{Binding HasRecordMode}">
+                            <StackPanel>
+                                <RadioButton GroupName="RecordMode" Content="{x:Static lang:Resources.Settings_RecordMode_RadioButton_Standard}"
+                                             IsChecked="{Binding Path=RecordMode, Converter={StaticResource EnumToBooleanConverter},
+                                    ConverterParameter={x:Static config:RecordMode.Standard}}" />
+                                <RadioButton GroupName="RecordMode" Content="{x:Static lang:Resources.Settings_RecordMode_RadioButton_RawData}"
+                                             IsChecked="{Binding Path=RecordMode, Converter={StaticResource EnumToBooleanConverter},
+                                    ConverterParameter={x:Static config:RecordMode.RawData}}" />
+                            </StackPanel>
+                        </local:SettingWithDefault>
+                    </StackPanel>
+                </HeaderedContentControl>
+                <HeaderedContentControl Header="标准模式录制修复设置" Classes="GroupBox">
+                    <StackPanel>
+                        <local:SettingWithDefault IsSettingNotUsingDefault="{Binding HasFlvProcessorSplitOnScriptTag}">
+                            <StackPanel>
+                                <ToggleSwitch IsChecked="{Binding FlvProcessorSplitOnScriptTag}" OnContent="检测到可能缺少数据时分段" OffContent="检测到可能缺少数据时分段" />
+                            </StackPanel>
+                        </local:SettingWithDefault>
+                        <local:SettingWithDefault IsSettingNotUsingDefault="{Binding HasFlvProcessorDisableSplitOnH264AnnexB}">
+                            <StackPanel>
+                                <ToggleSwitch IsChecked="{Binding FlvProcessorDisableSplitOnH264AnnexB}" OnContent="使用实验性花屏修复判定逻辑" OffContent="使用实验性花屏修复判定逻辑" />
+                            </StackPanel>
+                        </local:SettingWithDefault>
+                    </StackPanel>
+                </HeaderedContentControl>
+                <HeaderedContentControl Header="{x:Static lang:Resources.Settings_Splitting_Title}" Classes="GroupBox">
+                    <StackPanel>
+                        <local:SettingWithDefault IsSettingNotUsingDefault="{Binding HasCuttingMode}">
+                            <StackPanel>
+                                <RadioButton GroupName="Splitting" Content="{x:Static lang:Resources.Settings_Splitting_RadioButton_Disabled}"
+                                             IsChecked="{Binding Path=CuttingMode, Converter={StaticResource EnumToBooleanConverter},
+                        ConverterParameter={x:Static config:CuttingMode.Disabled}}" />
+                                <RadioButton GroupName="Splitting" Content="{x:Static lang:Resources.Settings_Splitting_RadioButton_BySize}"
+                                             IsChecked="{Binding Path=CuttingMode, Converter={StaticResource EnumToBooleanConverter},
+                        ConverterParameter={x:Static config:CuttingMode.BySize}}" />
+                                <RadioButton GroupName="Splitting" Content="{x:Static lang:Resources.Settings_Splitting_RadioButton_ByTime}"
+                                             IsChecked="{Binding Path=CuttingMode, Converter={StaticResource EnumToBooleanConverter},
+                        ConverterParameter={x:Static config:CuttingMode.ByTime}}" />
+                            </StackPanel>
+                        </local:SettingWithDefault>
+                        <local:SettingWithDefault IsSettingNotUsingDefault="{Binding HasCuttingNumber}">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,0">
+                                <TextBlock VerticalAlignment="Center" Text="{x:Static lang:Resources.Settings_Splitting_TextBox_Left}" />
+                                <TextBox Margin="5,0" Width="100" Text="{Binding CuttingNumber}" />
+                                <TextBlock VerticalAlignment="Center" Text="{x:Static lang:Resources.Settings_Splitting_TextBox_TimeUnit}" />
+                                <TextBlock VerticalAlignment="Center" Text="/" />
+                                <TextBlock VerticalAlignment="Center" Text="{x:Static lang:Resources.Settings_Splitting_TextBox_SizeUnit}" />
+                                <TextBlock VerticalAlignment="Center" Text=" " />
+                                <TextBlock VerticalAlignment="Center" Text="{x:Static lang:Resources.Settings_Splitting_TextBox_Right}" />
+                            </StackPanel>
+                        </local:SettingWithDefault>
+                        <ToggleSwitch IsChecked="{Binding CuttingByTitle}" OnContent="{x:Static lang:Resources.Settings_Splitting_ToggleSwitch_ByTitle}"
+                                      OffContent="{x:Static lang:Resources.Settings_Splitting_ToggleSwitch_ByTitle}" />
+                    </StackPanel>
+                </HeaderedContentControl>
+                <HeaderedContentControl Header="直播封面" Classes="GroupBox">
+                    <local:SettingWithDefault IsSettingNotUsingDefault="{Binding HasSaveStreamCover}">
+                        <ToggleSwitch IsChecked="{Binding SaveStreamCover}" OnContent="录制时同时保存直播封面" OffContent="录制时同时保存直播封面" />
+                    </local:SettingWithDefault>
+                </HeaderedContentControl>
+                <HeaderedContentControl Header="录制画质" Classes="GroupBox">
+                    <StackPanel>
+                        <TextBlock Text="逗号分割的录制画质ID" />
+                        <local:SettingWithDefault IsSettingNotUsingDefault="{Binding HasRecordingQuality}">
+                            <TextBox Text="{Binding RecordingQuality,UpdateSourceTrigger=PropertyChanged,Delay=1000}"
+                                     Width="220" HorizontalAlignment="Left" />
+                        </local:SettingWithDefault>
+                    </StackPanel>
+                </HeaderedContentControl>
+                <HeaderedContentControl Header="录制条件" Classes="GroupBox">
+                    <StackPanel>
+                        <TextBlock Margin="5" Text="跳过录制的直播标题正则匹配表达式，每行一个" />
+                        <local:SettingWithDefault IsSettingNotUsingDefault="{Binding HasTitleFilterPatterns}">
+                            <TextBox Margin="5" AcceptsReturn="True" TextWrapping="Wrap" ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                                     Text="{Binding TitleFilterPatterns,UpdateSourceTrigger=PropertyChanged,Delay=1000}" />
+                        </local:SettingWithDefault>
+                    </StackPanel>
+                </HeaderedContentControl>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</ui:ContentDialog>

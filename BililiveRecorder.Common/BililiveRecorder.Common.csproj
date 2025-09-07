@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Flurl" />
+      <PackageReference Include="Nerdbank.Streams" />
+      <PackageReference Include="Newtonsoft.Json" />
+      <PackageReference Include="HierarchicalPropertyDefault" />
+      <PackageReference Include="JsonSubTypes" />
+      <PackageReference Include="Serilog" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+      <PackageReference Include="Jint" />
+      <PackageReference Include="Polly" />
+      <PackageReference Include="Polly.Caching.Memory" />
+      <PackageReference Include="System.IO.Pipelines" />
+    </ItemGroup>
+
+</Project>
